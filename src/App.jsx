@@ -16,11 +16,6 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
         <a href="#"></a>
-        <script
-          id="embedai"
-          src="https://embedai.thesamur.ai/embedai.js"
-          data-id="ascode"
-        ></script>
       </div>
       <h1>Vite + React</h1>
       <div className="card">
