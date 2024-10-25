@@ -1,0 +1,18 @@
+.header {
+  background-color: rgb(182, 182, 243);
+  padding: 10px;
+}
+
+.form {
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: space-around;
+  border-radius: 8px;
+}
+
+.input {
+  width: 300px;
+  border-radius: 8px;
+  padding: 5px;
+  border: none;
+}
