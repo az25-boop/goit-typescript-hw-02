@@ -12,10 +12,10 @@ import { Image, Response } from "../../types";
 
 const App: FC = () => {
   const [images, setImages] = useState<Image[]>([]);
-  const [loader, setLoader] = useState(false);
-  const [error, setError] = useState(false);
-  const [page, setPage] = useState(1);
-  const [request, setRequest] = useState("");
+  const [loader, setLoader] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [request, setRequest] = useState<string>("");
   const [modalImg, setModalImg] = useState<Image>();
   const [showBtn, setShowBtn] = useState<boolean | 0>(false);
   useEffect(() => {

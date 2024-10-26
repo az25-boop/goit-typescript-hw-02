@@ -36,8 +36,8 @@ const ImageModal: FC<Props> = ({ onClose, state, img }) => {
       </button>
       <img
         className={s.img}
-        src={img.url}
-        alt={img.description}
+        src={img.urls.regular}
+        alt={img.alt_description}
         width="500px"
       />
     </Modal>
