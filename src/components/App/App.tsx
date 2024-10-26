@@ -17,7 +17,7 @@ const App: FC = () => {
   const [page, setPage] = useState(1);
   const [request, setRequest] = useState("");
   const [modalImg, setModalImg] = useState<Image>();
-  const [showBtn, setShowBtn] = useState(false);
+  const [showBtn, setShowBtn] = useState<boolean | 0>(false);
   useEffect(() => {
     if (!request) {
       return;
