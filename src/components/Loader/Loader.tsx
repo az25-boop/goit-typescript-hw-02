@@ -1,7 +1,12 @@
 import { DNA } from "react-loader-spinner";
 import s from "./Loader.module.css";
+import { FC } from "react";
 
-export default function Loader() {
+interface Props {
+  isLoading: boolean;
+}
+
+const Loader: FC<Props> = (isLoading) => {
   return (
     <div className={s.loader}>
       <DNA
@@ -14,4 +19,6 @@ export default function Loader() {
       />
     </div>
   );
-}
+};
+
+export default Loader;

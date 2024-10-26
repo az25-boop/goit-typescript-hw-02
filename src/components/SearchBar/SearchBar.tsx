@@ -1,8 +1,13 @@
 import toast from "react-hot-toast";
 import s from "./SearchBar.module.css";
+import { FC, FormEvent } from "react";
 
-export default function SearchBar({ onSubmit }) {
-  function handleSubmit(event) {
+interface Props {
+  onSubmit: (searchValue: string) => void;
+}
+
+const SearchBar: FC<Props> = ({ onSubmit }) => {
+  function handleSubmit(event: FormEvent<HTMLFormElement>): void {
     const notify = () =>
       toast("Поле пошуку необхідно заповнити", {
         duration: 1500,
@@ -11,13 +16,16 @@ export default function SearchBar({ onSubmit }) {
         },
       });
     event.preventDefault();
-    const searchRequest = event.target.elements.search.value.trim();
+    const input = event.currentTarget.elements.namedItem(
+      "search"
+    ) as HTMLInputElement;
+    const searchRequest = input.value;
     if (searchRequest !== "") {
       onSubmit(searchRequest);
     } else {
       notify();
     }
-    event.target.reset();
+    event.currentTarget.reset();
   }
   return (
     <header className={s.header}>
@@ -34,4 +42,6 @@ export default function SearchBar({ onSubmit }) {
       </form>
     </header>
   );
-}
+};
+
+export default SearchBar;

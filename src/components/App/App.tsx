@@ -5,17 +5,18 @@ import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 import { Toaster } from "react-hot-toast";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import fetchImages from "../../images-api";
 import s from "./App.module.css";
+import { Image, Response } from "../../types";
 
-export default function App() {
-  const [images, setImages] = useState([]);
+const App: FC = () => {
+  const [images, setImages] = useState<Image[]>([]);
   const [loader, setLoader] = useState(false);
   const [error, setError] = useState(false);
   const [page, setPage] = useState(1);
   const [request, setRequest] = useState("");
-  const [modalImg, setModalImg] = useState({});
+  const [modalImg, setModalImg] = useState<Image>();
   const [showBtn, setShowBtn] = useState(false);
   useEffect(() => {
     if (!request) {
@@ -25,10 +26,11 @@ export default function App() {
       try {
         setError(false);
         setLoader(true);
-        const response = await fetchImages(request, page);
-        const totalPages = response.data.total_pages;
-        setShowBtn(totalPages && totalPages !== page && page < 200);
+        setShowBtn(false);
+        const response: Response = await fetchImages(request, page);
+        const totalPages: number = response.data.total_pages;
         setImages((prevData) => [...prevData, ...response.data.results]);
+        setShowBtn(totalPages && totalPages !== page && page < 200);
       } catch (err) {
         setError(true);
         setShowBtn(false);
@@ -39,7 +41,7 @@ export default function App() {
 
     fetch();
   }, [request, page]);
-  async function handleSubmit(searchRequest) {
+  function handleSubmit(searchRequest: string): void {
     setImages([]);
     setPage(1);
     setRequest(searchRequest);
@@ -58,12 +60,7 @@ export default function App() {
   }
   return (
     <div className={s.app}>
-      <ImageModal
-        onClose={closeModal}
-        onOpen={openModal}
-        state={modalIsOpen}
-        img={modalImg}
-      />
+      <ImageModal onClose={closeModal} state={modalIsOpen} img={modalImg} />
       <SearchBar onSubmit={handleSubmit} />
       {images.length > 0 && (
         <ImageGallery
@@ -72,10 +69,13 @@ export default function App() {
           changeImg={setModalImg}
         />
       )}
+
       <Toaster />
-      {loader && <Loader />}
+      {loader && <Loader isLoading={loader} />}
       {error && <ErrorMessage />}
       {showBtn && <LoadMoreBtn onClick={loadMore} />}
     </div>
   );
-}
+};
+
+export default App;

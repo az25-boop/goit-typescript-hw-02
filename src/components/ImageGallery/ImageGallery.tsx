@@ -1,7 +1,15 @@
 import ImageCard from "../ImageCard/ImageCard";
 import s from "./ImageGallery.module.css";
+import { Dispatch, FC } from "react";
+import { Image } from "../../types";
 
-export default function ImageGallery({ items, openModal, changeImg }) {
+interface Props {
+  items: Image[];
+  openModal: () => void;
+  changeImg: Dispatch<React.SetStateAction<Image | undefined>>;
+}
+
+const ImageGallery: FC<Props> = ({ items, openModal, changeImg }) => {
   return (
     <ul className={s.gallery}>
       {items.map(({ id, urls, alt_description }) => (
@@ -9,7 +17,7 @@ export default function ImageGallery({ items, openModal, changeImg }) {
           className={s.card}
           key={id}
           onClick={() => {
-            changeImg({ url: urls.regular, description: alt_description });
+            changeImg({ id, urls, alt_description });
           }}
         >
           <ImageCard
@@ -21,4 +29,6 @@ export default function ImageGallery({ items, openModal, changeImg }) {
       ))}
     </ul>
   );
-}
+};
+
+export default ImageGallery;

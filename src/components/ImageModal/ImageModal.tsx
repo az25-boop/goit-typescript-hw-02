@@ -1,6 +1,8 @@
 import Modal from "react-modal";
 import { AiOutlineClose } from "react-icons/ai";
 import s from "./ImageModal.module.css";
+import { FC } from "react";
+import { Image } from "../../types";
 
 Modal.setAppElement("#root");
 const customStyles = {
@@ -14,8 +16,14 @@ const customStyles = {
   },
 };
 
-export default function ImageModal({ onClose, state, img }) {
-  return (
+interface Props {
+  onClose: () => void;
+  state: boolean;
+  img: Image | undefined;
+}
+
+const ImageModal: FC<Props> = ({ onClose, state, img }) => {
+  return img ? (
     <Modal
       isOpen={state}
       onRequestClose={onClose}
@@ -33,5 +41,9 @@ export default function ImageModal({ onClose, state, img }) {
         width="500px"
       />
     </Modal>
+  ) : (
+    <></>
   );
-}
+};
+
+export default ImageModal;
