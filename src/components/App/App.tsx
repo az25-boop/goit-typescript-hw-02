@@ -27,9 +27,9 @@ const App: FC = () => {
         setError(false);
         setLoader(true);
         setShowBtn(false);
-        const response: Response = await fetchImages(request, page);
-        const totalPages: number = response.data.total_pages;
-        setImages((prevData) => [...prevData, ...response.data.results]);
+        const data = await fetchImages(request, page);
+        const totalPages: number = data.total_pages;
+        setImages((prevData) => [...prevData, ...data.results]);
         setShowBtn(totalPages && totalPages !== page && page < 200);
       } catch (err) {
         setError(true);
